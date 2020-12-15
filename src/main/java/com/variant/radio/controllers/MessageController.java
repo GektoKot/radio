@@ -36,6 +36,7 @@ public class MessageController {
 
         messages.add(message);
 
+
         return  message;
     }
 
@@ -44,11 +45,12 @@ public class MessageController {
         Map<String, String> messageFromDB = getMessageFromDB(id);
 
         messageFromDB.putAll(message);
+        messageFromDB.put("id", id);
 
         return messageFromDB;
     }
 
-    @DeleteMapping("id")
+    @DeleteMapping("{id}")
     public void deleteMessage(@PathVariable String id) {
         messages.remove(getMessageFromDB(id));
     }
