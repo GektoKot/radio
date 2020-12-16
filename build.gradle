@@ -15,6 +15,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation('org.springframework.session:spring-session-jdbc')
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -22,6 +23,7 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	implementation('org.projectlombok:lombok')
 	implementation('javax.xml.bind:jaxb-api')
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
 	implementation('org.springframework.boot:spring-boot-starter-security')
 	// https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure
