@@ -6,6 +6,8 @@ import com.variant.radio.domain.Views;
 import com.variant.radio.repository.MessageRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -55,11 +57,21 @@ public class MessageController {
         messageRepository.delete(message);
     }
 
+    @MessageMapping("/changeMessage")
+    @SendTo("/topic/activity")
+    public Message change(Message message) {
+
+        return  messageRepository.save(message);
+    }
+
+
 //    private Map<String, String> getMessageFromDB(String id) {
 //        return messages.stream()
 //                .filter(m -> m.get("id").equals(id))
 //                .findFirst()
 //                .orElseThrow(MessageNotFoundException::new);
 //    }
+
+
 
 }
