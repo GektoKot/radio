@@ -32,12 +32,12 @@ public class MainController {
 
         Map<Object, Object> data = new HashMap<>();
 
-        data.put("profile", user);
-        data.put("messages", messageRepository.findAll());
-
+        if (user != null) {
+            data.put("profile", user);
+            data.put("messages", messageRepository.findAll());
+        }
 
         model.addAttribute("isDevMode", "dev".equals(profile));
-
         model.addAttribute("frontendData", data);
 
         return "index";
