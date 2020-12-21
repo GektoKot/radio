@@ -30,6 +30,29 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
+            },
+            {
+                test: /.css$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                ]
+            },
+            {
+                test: /\.sass$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require('sass'),
+                            sassOptions: {
+                                indentedSyntax: true
+                            },
+                        },
+                    },
+                ]
             }
         ]
     },
