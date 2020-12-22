@@ -20,7 +20,7 @@ Vue.use(VueResource)
 
 new Vue({
     el: '#app',
-    vuetify: new Vuetify({}),
+    vuetify: new Vuetify({opts}),
     render: a => a(App)
 })
     // .$mount('#app')
