@@ -1,43 +1,49 @@
 <template>
-<!--  <v-app>-->
-<!--    <v-navigation-drawer app>-->
-<!--      &lt;!&ndash; &ndash;&gt;-->
-<!--    </v-navigation-drawer>-->
+  <!--  <v-app>-->
+  <!--    <v-navigation-drawer app>-->
+  <!--      &lt;!&ndash; &ndash;&gt;-->
+  <!--    </v-navigation-drawer>-->
 
-<!--    <v-app-bar app>-->
-<!--      &lt;!&ndash; &ndash;&gt;-->
-<!--    </v-app-bar>-->
+  <!--    <v-app-bar app>-->
+  <!--      <div>Необходимо авторизоваться через&ndash;&gt;-->
+  <!--             <a href="/login">Google</a>-->
+  <!--      </div>-->
+  <!--    </v-app-bar>-->
 
-<!--    &lt;!&ndash; Sizes your content based upon application components &ndash;&gt;-->
-<!--    <v-main>-->
+  <!--    &lt;!&ndash; Sizes your content based upon application components &ndash;&gt;-->
+  <!--    <v-main>-->
 
-<!--      &lt;!&ndash; Provides the application the proper gutter &ndash;&gt;-->
-<!--      <v-container fluid>-->
+  <!--      &lt;!&ndash; Provides the application the proper gutter &ndash;&gt;-->
+  <!--      <v-container fluid>-->
+  <!--        <div>-->
+  <!--          <div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>-->
+  <!--          <messages-list :messages="messages" />-->
+  <!--        </div>-->
 
-<!--        &lt;!&ndash; If using vue-router &ndash;&gt;-->
-<!--        <router-view></router-view>-->
-<!--      </v-container>-->
-<!--    </v-main>-->
+  <!--        &lt;!&ndash; If using vue-router &ndash;&gt;-->
+  <!--&lt;!&ndash;        <router-view></router-view>&ndash;&gt;-->
+  <!--      </v-container>-->
+  <!--    </v-main>-->
 
-<!--    <v-footer app>-->
-<!--      &lt;!&ndash; &ndash;&gt;-->
-<!--    </v-footer>-->
-<!--  </v-app>-->
+  <!--    <v-footer app>-->
+  <!--      &lt;!&ndash; &ndash;&gt;-->
+  <!--    </v-footer>-->
+  <!--  </v-app>-->
   <div class="style">
     <div v-if="!profile">Необходимо авторизоваться через
       <a href="/login">Google</a>
     </div>
     <div v-else>
-      <div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>
-      <messages-list :messages="messages" />
+      <div>{{ profile.name }}&nbsp;<a href="/logout">Выйти</a></div>
+      <messages-list :messages="messages"/>
     </div>
   </div>
 </template>
 
 <script>
 import MessagesList from "components/messages/MessagesList.vue"
-import { addHandler} from "util/ws";
-import { getIndex } from "util/connections";
+import {addHandler} from "util/ws";
+import {getIndex} from "util/connections";
 
 export default {
   components: {
@@ -63,7 +69,8 @@ export default {
 </script>
 
 <style>
-.style{
-  color: red;
+.style {
+  color: brown;
+  font-size: xx-large;
 }
 </style>
