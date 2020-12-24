@@ -1,43 +1,33 @@
 <template>
-    <!--<v-app>
-      <v-navigation-drawer app>
-        &lt;!&ndash; &ndash;&gt;
-      </v-navigation-drawer>
 
-      <v-app-bar app>
-        <div>Необходимо авторизоваться через&ndash;&gt;
-               <a href="/login">Google</a>
-        </div>
-      </v-app-bar>
+  <v-app id="inspire">
+    <v-navigation-drawer
+        v-model="drawer"
+        app
+    >
+      <!--  -->
+    </v-navigation-drawer>
 
-      &lt;!&ndash; Sizes your content based upon application components &ndash;&gt;
-      <v-main>
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-        &lt;!&ndash; Provides the application the proper gutter &ndash;&gt;
-        <v-container fluid>
-          <div>
-&lt;!&ndash;            <div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>&ndash;&gt;
-&lt;!&ndash;            <messages-list :messages="messages" />&ndash;&gt;
-          </div>
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar>
 
-          &lt;!&ndash; If using vue-router &ndash;&gt;
-  &lt;!&ndash;        <router-view></router-view>&ndash;&gt;
-        </v-container>
-      </v-main>
+    <v-main>
+      <!--  -->
+    </v-main>
+  </v-app>
 
-      <v-footer app>
-        &lt;!&ndash; &ndash;&gt;
-      </v-footer>
-    </v-app>-->
-  <div class="style">
-    <div v-if="!profile">Необходимо авторизоваться через
-      <a href="/login">Google</a>
+ <!-- <div class="style">
+    <div v-if="!profile">
+      <a href="/login">Enter</a> to radio station.
     </div>
     <div v-else>
-      <div>{{ profile.name }}&nbsp;<a href="/logout">Выйти</a></div>
+      <div>{{ profile.name }}&nbsp;<a href="/logout">Abandon</a></div>
       <messages-list :messages="messages"/>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -46,15 +36,16 @@ import {addHandler} from "util/ws";
 import {getIndex} from "util/connections";
 
 export default {
+  data: () => ({ drawer: null }),
   components: {
     MessagesList
   },
-  data() {
+  /*data() {
     return {
       messages: frontendData.messages,
       profile: frontendData.profile
     }
-  },
+  },*/
   created() {
     addHandler(data => {
       let index = getIndex(this.messages, data.id)

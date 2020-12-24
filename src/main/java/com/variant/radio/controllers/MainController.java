@@ -18,7 +18,7 @@ import java.util.Map;
 public class MainController {
 
     private final MessageRepository messageRepository;
-
+//переменная окружения
     @Value("${spring.profiles.active}")
     private String profile;
 
