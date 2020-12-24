@@ -6,10 +6,10 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     entry: path.join(__dirname, 'src', 'main', 'resources', 'static', 'js', 'main.js'),
-    output: {
+    /*output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
-    },
+    },*/
     devServer: {
         contentBase: './dist',
         compress: true,
@@ -50,6 +50,7 @@ module.exports = {
                     'css-loader',
                     {
                         loader: 'sass-loader',
+
                         options: {
                             implementation: require('sass'),
                             sassOptions: {
@@ -65,6 +66,7 @@ module.exports = {
         new VueLoaderPlugin(),
         // new VuetifyLoaderPlugin()
     ],
+
     resolve: {
         modules: [
             path.join(__dirname, 'src', 'main', 'resources', 'static', 'js'),

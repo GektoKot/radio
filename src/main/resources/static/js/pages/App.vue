@@ -5,17 +5,19 @@
         v-model="drawer"
         app
     >
-      <!--  -->
+      <h1>navigation-drawer</h1>
     </v-navigation-drawer>
 
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>ToolbarTitle</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
-      <!--  -->
+      MainMainMain
+      MainMainMain
+      MainMainMain
     </v-main>
   </v-app>
 
