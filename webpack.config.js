@@ -40,13 +40,24 @@ module.exports = {
                 test: /\.css$/,
                 use: [
                     'vue-style-loader',
+                    // 'style-loader',
                     'css-loader'
+                    /*{
+                        loader: 'css-loader',
+                        options: {
+                            // css-loader set esModule: true as the default in v4.0.0
+                            // https://github.com/webpack-contrib/css-loader/releases/tag/v4.0.0
+                            // Doesn't work unless this disabled
+                            esModule: true
+                        }
+                    },*/
                 ]
             },
             {
                 test: /\.s([ca])ss$/,
                 use: [
                     'vue-style-loader',
+                    // 'style-loader',
                     'css-loader',
                     {
                         loader: 'sass-loader',
