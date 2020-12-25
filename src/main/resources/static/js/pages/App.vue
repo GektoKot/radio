@@ -1,33 +1,42 @@
 <template>
 
-  <v-app id="inspire">
-    <v-navigation-drawer
-        v-model="drawer"
-        app
-    >
-      <h1>navigation-drawer</h1>
-    </v-navigation-drawer>
+  <v-app>
+    <div>
+      <v-app-bar color="light-blue lighten-5" dense rounded>
+        <v-toolbar-title>RadioRest<v-icon class="material-icons">radio</v-icon> </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn v-if="!profile" href="/login">
+          <v-icon>mdi-arrow-up-bold-box-outline</v-icon>
+          Log In
+        </v-btn>
+        <span v-if="profile">{{ profile.name }}</span>
+        <v-btn class="ml-2" v-if="profile" href="/logout">
+          <v-icon>mdi-arrow-down-bold-box-outline</v-icon>
+          Log Out
+        </v-btn>
+      </v-app-bar>
+    </div>
 
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>ToolbarTitle</v-toolbar-title>
-    </v-app-bar>
+      <v-main>
+        <v-container v-if="profile">
+          <messages-list :messages="messages"/>
+        </v-container>
+        <v-container v-else>
+          <h1>LogIn for Broadcasting!!!</h1>
+        </v-container>
+      </v-main>
 
-    <v-main>
-      MainMainMain
-      MainMainMain
-      MainMainMain
-    </v-main>
+
   </v-app>
 
- <!-- <div class="style">
+  <!--<div class="style">
     <div v-if="!profile">
       <a href="/login">Enter</a> to radio station.
     </div>
     <div v-else>
       <div>{{ profile.name }}&nbsp;<a href="/logout">Abandon</a></div>
-      <messages-list :messages="messages"/>
+<messages-list :messages="messages"/>
     </div>
   </div>-->
 </template>
@@ -38,16 +47,15 @@ import {addHandler} from "util/ws";
 import {getIndex} from "util/connections";
 
 export default {
-  data: () => ({ drawer: null }),
   components: {
     MessagesList
   },
-  /*data() {
+  data() {
     return {
       messages: frontendData.messages,
       profile: frontendData.profile
     }
-  },*/
+  },
   created() {
     addHandler(data => {
       let index = getIndex(this.messages, data.id)
@@ -62,8 +70,4 @@ export default {
 </script>
 
 <style>
-.style {
-  color: brown;
-  font-size: xx-large;
-}
 </style>

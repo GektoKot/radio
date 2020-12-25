@@ -1,7 +1,6 @@
 import Vue from 'vue'
-// import Vuetify from 'vuetify/lib'
 import Vuetify from 'vuetify'
-// import 'vuetify/dist/vuetify.min.css'
+import 'vuetify/dist/vuetify.min.css'
 import VueResource from 'vue-resource'
 import { connect } from './util/ws.js'
 import App from 'pages/App.vue'
@@ -15,15 +14,16 @@ Vue.use(VueResource)
 
 const opts = {
     theme: {
-        dark: true
+        light: true
     }
 }
 
 new Vue({
-    // el: '#app',
+    el: '#app',
     vuetify: new Vuetify(opts),
+    iconfont: 'mdiSvg', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg',
     render: a => a(App)
-}).$mount('#app')
+})
 
 
 

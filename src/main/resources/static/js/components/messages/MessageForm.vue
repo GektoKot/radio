@@ -1,8 +1,17 @@
 <template>
-  <div>
-    <input type="text" placeholder="Radio message" v-model="text"/>
-    <input type="button" value="Broadcast!" @click="save"/>
-  </div>
+  <v-layout column>
+<!--    <input type="text" placeholder="Radio message" v-model="text"/>-->
+    <v-text-field
+        label="Radio message"
+        Radio message
+        v-model="text"
+        outlined
+    ></v-text-field>
+<!--    <input type="button" value="Broadcast!" @click="save"/>-->
+    <v-btn color="orange lighten-4" class="mb-5" @click="save" small>
+      <v-icon >mdi-antenna</v-icon>Broadcast<v-icon >mdi-antenna</v-icon>
+    </v-btn>
+  </v-layout>
 </template>
 
 <script>
