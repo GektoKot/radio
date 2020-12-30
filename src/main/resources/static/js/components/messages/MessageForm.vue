@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import MessagesApi from 'api/messages'
+import MessagesApi from 'api/messages.js'
+
 export default {
 
   props: ['messages', 'messageAttributes'],
@@ -39,7 +40,7 @@ export default {
       }
 
       if (this.id) {
-        MessagesApi.refresh(message).then(result =>
+        MessagesApi.update(message).then(result =>
             result.json().then(data => {
               const index = this.messages.findIndex(item => item.id === data.id)
               this.messages.splice(index, 1, data)

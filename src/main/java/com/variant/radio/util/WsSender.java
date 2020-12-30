@@ -27,11 +27,11 @@ public class WsSender {
                 .setConfig(objectMapper.getSerializationConfig())
                 .writerWithView(view);
         return (EventType eventType, T payload) -> {
-            String stringPayload = null;
+            String stringPayload;
             try {
                 stringPayload = objectWriter.writeValueAsString(payload);
             } catch (JsonProcessingException e) {
-                new RuntimeException().printStackTrace();
+                throw new RuntimeException(e);
             }
 
             smt.convertAndSend("/topic/activity", new WsEventDto(objectType, eventType, stringPayload));

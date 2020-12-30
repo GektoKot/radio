@@ -76,7 +76,7 @@ export default {
             console.error('EventType is unknown ')
         }
       } else {
-        console.error('EventType or ObjectType is unknown :'+ data.eventType + data.objectType)
+        console.error('EventType or ObjectType is unknown :' + data.objectType)
       }
     })
   }

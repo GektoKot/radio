@@ -13,7 +13,7 @@
 <script>
 import MessageRow from 'components/messages/MessageRow.vue'
 import MessageForm from 'components/messages/MessageForm.vue'
-import MessagesApi from 'api/messages'
+import MessagesApi from 'api/messages.js'
 
 
 export default {
@@ -37,7 +37,7 @@ export default {
       this.message = message
     },
     deleteMessage(message) {
-      MessagesApi.delete( message.id).then(result => {
+      MessagesApi.delete(message.id).then(result => {
         if (result.ok) {
           this.messages.splice(this.messages.indexOf(message), 1)
         }

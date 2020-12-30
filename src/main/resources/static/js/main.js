@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import 'api/resource'
+import 'api/resource.js'
 import App from 'pages/App.vue'
 import { connect } from './util/ws.js'
 import 'vuetify/dist/vuetify.min.css'
