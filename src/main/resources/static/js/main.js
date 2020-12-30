@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
-import VueResource from 'vue-resource'
-import { connect } from './util/ws.js'
+import 'api/resource'
 import App from 'pages/App.vue'
+import { connect } from './util/ws.js'
+import 'vuetify/dist/vuetify.min.css'
 
 if (frontendData.profile) {
     connect()
 }
 
 Vue.use(Vuetify)
-Vue.use(VueResource)
+
 
 const opts = {
     theme: {
@@ -21,7 +21,7 @@ const opts = {
 new Vue({
     el: '#app',
     vuetify: new Vuetify(opts),
-    iconfont: 'mdiSvg', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg',
+    // iconfont: 'mdiSvg', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg',
     render: a => a(App)
 })
 
