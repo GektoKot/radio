@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import MessagesApi from "/api/messages";
+import MessagesApi from 'api/messages.js';
 
 Vue.use(Vuex)
 

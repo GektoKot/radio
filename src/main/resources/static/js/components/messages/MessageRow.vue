@@ -24,14 +24,11 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-  // props: ['message', 'editMessage'],
-  props: ['message'],
+  props: ['message', 'editMessage'],
   methods: {
-    ...mapActions(['deleteMessageAction', 'updateMessageAction']),
+    ...mapActions(['deleteMessageAction']),
     edit() {
-
-      // this.editMessage(this.message)
-      this.updateMessageAction(this.message)
+      this.editMessage(this.message)
     },
     del() {
       this.deleteMessageAction(this.message)

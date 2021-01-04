@@ -39,7 +39,6 @@ export default {
         id: this.id,
         text: this.text
       }
-
       if (this.id) {
         this.updateMessageAction(message)
       } else {
