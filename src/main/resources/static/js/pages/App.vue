@@ -3,14 +3,35 @@
   <v-app>
     <div>
       <v-app-bar color="light-blue lighten-5" dense rounded>
-        <v-toolbar-title>RadioRest<v-icon class="material-icons">radio</v-icon> </v-toolbar-title>
+        <v-toolbar-title>RadioRest
+          <v-icon class="material-icons">radio</v-icon>
+        </v-toolbar-title>
+        <v-btn v-if="profile"
+               class="ml-2"
+               rounded
+               small
+               :disabled="$route.path === '/'"
+               @click="showMessages">
+          Transmissions
+        </v-btn>
+        <v-btn v-if="profile"
+               class="mx-1"
+               rounded
+               small
+               :disabled="$route.path === '/profile'"
+               @click="showProfile">
+          Newscaster
+        </v-btn>
         <v-spacer></v-spacer>
         <v-btn v-if="!profile" href="/login">
           <v-icon>mdi-arrow-up-bold-box-outline</v-icon>
           Log In
         </v-btn>
         <span v-if="profile">{{ profile.name }}</span>
-        <v-btn class="ml-2" v-if="profile" href="/logout">
+        <v-btn class="ml-2"
+               small
+               rounded
+               v-if="profile" href="/logout">
           <v-icon>mdi-arrow-down-bold-box-outline</v-icon>
           Log Out
         </v-btn>
@@ -18,14 +39,15 @@
     </div>
 
 
-      <v-main>
-        <v-container v-if="profile">
-          <messages-list/>
-        </v-container>
-        <v-container v-else>
-          <h1>LogIn for Broadcasting!!!</h1>
-        </v-container>
-      </v-main>
+    <v-main>
+      <!--<v-container v-if="profile">
+        <messages-list/>
+      </v-container>-->
+      <!--<v-container v-if="!profile">
+        <h1>LogIn for Broadcasting!!!</h1>
+      </v-container>-->
+      <router-view></router-view>
+    </v-main>
 
 
   </v-app>
@@ -42,17 +64,27 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import MessagesList from 'components/messages/MessagesList.vue'
-import { addHandler } from 'util/ws'
+import {mapState, mapMutations} from 'vuex'
+// import MessagesList from 'components/messages/MessagesList.vue'
+import {addHandler} from 'util/ws'
+import router from "../router/router";
 
 
 export default {
-  components: {
-    MessagesList
-  },
+  /* components: {
+     MessagesList
+   },*/
   computed: mapState(['profile']),
-  methods: mapMutations(['deleteMessageMutation', 'updateMessageMutation', 'createMessageMutation']),
+  methods: {
+    ...mapMutations(['deleteMessageMutation', 'updateMessageMutation', 'createMessageMutation']),
+    showMessages() {
+      this.$router.push('/')
+
+    },
+    showProfile() {
+      this.$router.push('/profile')
+    }
+  },
   created() {
     addHandler(data => {
       if (data.objectType === 'MESSAGE') {
@@ -74,6 +106,11 @@ export default {
         console.error('EventType or ObjectType is unknown :' + data.objectType)
       }
     })
+  },
+  beforeMount() {
+    if (!this.profile) {
+      this.$router.replace('/auth')
+    }
   }
 }
 </script>
