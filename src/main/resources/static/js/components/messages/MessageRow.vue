@@ -6,6 +6,7 @@
       shaped>
     (<i>{{ message.id }}</i>)
     <v-card-text>{{ message.text }}</v-card-text>
+    <media v-if="message.link" :message="message"></media>
     <v-card-actions>
 <!--        <input type="button" value="Renovation" @click="edit"/>-->
       <v-btn @click="edit" small rounded>
@@ -22,9 +23,11 @@
 </template>
 
 <script>
+import Media from "/media/Media.vue";
 import { mapActions } from 'vuex'
 export default {
   props: ['message', 'editMessage'],
+  components: { Media },
   methods: {
     ...mapActions(['deleteMessageAction']),
     edit() {

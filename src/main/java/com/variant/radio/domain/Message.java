@@ -2,9 +2,7 @@ package com.variant.radio.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +13,7 @@ import java.time.LocalDateTime;
 @Table
 @ToString(of = {"id", "text"})
 @EqualsAndHashCode(of = "id")
+@Data
 public class Message implements Serializable {
 
     @Id
@@ -29,27 +28,12 @@ public class Message implements Serializable {
     @JsonView(value = Views.IdTextDate.class)
     private LocalDateTime dateOfCreation;
 
-    public LocalDateTime getDateOfCreation() {
-        return dateOfCreation;
-    }
-
-    public void setDateOfCreation(LocalDateTime dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
+    @JsonView(Views.IdTextDate.class)
+    private String link;
+    @JsonView(Views.IdTextDate.class)
+    private String linkTitle;
+    @JsonView(Views.IdTextDate.class)
+    private String linkDescription;
+    @JsonView(Views.IdTextDate.class)
+    private String linkCover;
 }
