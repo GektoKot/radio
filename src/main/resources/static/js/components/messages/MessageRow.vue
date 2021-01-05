@@ -23,8 +23,9 @@
 </template>
 
 <script>
-import Media from "/media/Media.vue";
 import { mapActions } from 'vuex'
+import Media from 'components/media/Media.vue'
+
 export default {
   props: ['message', 'editMessage'],
   components: { Media },

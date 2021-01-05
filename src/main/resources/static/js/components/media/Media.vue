@@ -1,9 +1,9 @@
 <template>
   <v-card
       class="mx-auto"
-      max-width="344"
+      max-width="400"
   >
-    <v-flex v-if="type === 'href'">
+    <v-flex v-if="type === 'href'"  xs12 sm6 offset-sm3>
       <v-img v-if="message.linkCover"
              :src="message.linkCover"
              height="200px"
@@ -18,15 +18,14 @@
       </v-card-subtitle>
     </v-flex>
 
-    <v-flex v-if="type === 'image'">
+    <v-flex v-if="type === 'image'"  xs12 sm6 offset-sm3>
       <a :href="message.link">
         <v-img v-if="message.linkCover" :src="message.linkCover"></v-img>
-        {{message.link}}
       </a>
 
     </v-flex>
 
-    <v-flex v-if="type === 'youtube'">
+    <v-flex v-if="type === 'youtube'"  xs12 sm6 offset-sm3>
       <you-tube :src="message.link"></you-tube>
     </v-flex>
 
@@ -34,11 +33,11 @@
 </template>
 
 <script>
-import YouTube from "./YouTube"
+import YouTube from 'components/media/YouTube.vue'
 
 export default {
   name: "Media",
-  components: {YouTube},
+  components: { YouTube },
   props: ['message'],
   data() {
     return {
@@ -46,7 +45,7 @@ export default {
     }
   },
   beforeMount() {
-    if (this.message.link.indexOf('youtube') > -1) {
+    if (this.message.link.indexOf('youtu') > -1) {
       this.type = 'youtube'
     } else if (this.message.link.match('\.(jpeg|jpg|gif|png)$') !== null) {
       this.type = 'image'
