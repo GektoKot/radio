@@ -6,7 +6,7 @@ CREATE TABLE `spring_session` (
                                   `LAST_ACCESS_TIME` bigint NOT NULL,
                                   `MAX_INACTIVE_INTERVAL` int NOT NULL,
                                   `EXPIRY_TIME` bigint NOT NULL,
-                                  `PRINCIPAL_NAME` varchar(300) DEFAULT NULL,
+                                  `PRINCIPAL_NAME` varchar(600) DEFAULT NULL,
                                   PRIMARY KEY (`PRIMARY_ID`),
                                   UNIQUE KEY `SPRING_SESSION_IX1` (`SESSION_ID`),
                                   KEY `SPRING_SESSION_IX2` (`EXPIRY_TIME`),

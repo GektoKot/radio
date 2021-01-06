@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -27,6 +28,15 @@ public class Message implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     @JsonView(value = Views.IdTextDate.class)
     private LocalDateTime dateOfCreation;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonView(value = Views.IdTextDate.class)
+    private User author;
+
+    @OneToMany(mappedBy = "message", orphanRemoval = true)
+    @JsonView(value = Views.IdTextDate.class)
+    private List<Comment> comments;
 
     @JsonView(Views.IdTextDate.class)
     private String link;

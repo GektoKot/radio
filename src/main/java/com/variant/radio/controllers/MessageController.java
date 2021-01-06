@@ -2,6 +2,7 @@ package com.variant.radio.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.variant.radio.domain.Message;
+import com.variant.radio.domain.User;
 import com.variant.radio.domain.Views;
 import com.variant.radio.dto.EventType;
 import com.variant.radio.dto.MetaDto;
@@ -14,6 +15,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -54,9 +56,11 @@ public class MessageController {
     }
 
     @PostMapping
-    public Message addNewMessage(@RequestBody Message message) throws IOException {
+    public Message addNewMessage(@RequestBody Message message,
+                                 @AuthenticationPrincipal User user) throws IOException {
         message.setDateOfCreation(LocalDateTime.now());
         fillMeta(message);
+        message.setAuthor(user);
         Message savedMessage = messageRepository.save(message);
         wsSender.accept(EventType.CREATE, savedMessage);
         return savedMessage;

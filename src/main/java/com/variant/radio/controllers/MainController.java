@@ -1,6 +1,10 @@
 package com.variant.radio.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.variant.radio.domain.User;
+import com.variant.radio.domain.Views;
 import com.variant.radio.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,24 +25,30 @@ public class MainController {
 //переменная окружения
     @Value("${spring.profiles.active}")
     private String profile;
+    private final ObjectWriter objectWriter;
 
     @Autowired
-    public MainController(MessageRepository messageRepository) {
+    public MainController(MessageRepository messageRepository,  ObjectMapper objectMapper) {
         this.messageRepository = messageRepository;
+
+        this.objectWriter = objectMapper
+                .setConfig(objectMapper.getSerializationConfig())
+                .writerWithView(Views.IdTextDate.class);
     }
 
     @GetMapping
-    public String main(Model model, @AuthenticationPrincipal User user) {
+    public String main(Model model, @AuthenticationPrincipal User user) throws JsonProcessingException {
 
         Map<Object, Object> data = new HashMap<>();
 
         if (user != null) {
             data.put("profile", user);
-            data.put("messages", messageRepository.findAll());
+            String messages = objectWriter.writeValueAsString(messageRepository.findAll());
+            model.addAttribute("messages", messages);
         }
 
-        model.addAttribute("isDevMode", "dev".equals(profile));
         model.addAttribute("frontendData", data);
+        model.addAttribute("isDevMode", "dev".equals(profile));
 
         return "index";
     }

@@ -19,16 +19,18 @@
         Shut down
       </v-btn>
     </v-card-actions>
+    <comments-list :comments="message.comments" :message-id="message.id"></comments-list>
   </v-card>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import Media from 'components/media/Media.vue'
+import CommentsList from 'components/comments/CommentsList.vue'
 
 export default {
   props: ['message', 'editMessage'],
-  components: { Media },
+  components: { CommentsList, Media },
   methods: {
     ...mapActions(['deleteMessageAction']),
     edit() {

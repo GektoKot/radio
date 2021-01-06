@@ -1,35 +1,31 @@
 <template>
-  <v-card
-      class="mx-auto"
-      max-width="400"
-  >
-    <v-flex v-if="type === 'href'"  xs12 sm6 offset-sm3>
-      <v-img v-if="message.linkCover"
-             :src="message.linkCover"
-             height="200px"
-      ></v-img>
-      <v-card-title>
-        <a :href="message.link">{{ message.linkTitle || message.link }}</a>
-      </v-card-title>
-      <v-card-subtitle v-if="message.linkDescription">
-        <div>
-          {{ message.linkDescription }}
-        </div>
-      </v-card-subtitle>
-    </v-flex>
+  <v-container>
 
-    <v-flex v-if="type === 'image'"  xs12 sm6 offset-sm3>
+      <v-flex v-if="type === 'href'" xs12 sm6 offset-sm3>
+        <v-img v-if="message.linkCover"
+               :src="message.linkCover"
+               height="200px"
+        ></v-img>
+        <v-card-title>
+          <a :href="message.link">{{ message.linkTitle || message.link }}</a>
+        </v-card-title>
+        <v-card-subtitle v-if="message.linkDescription">
+          <div>
+            {{ message.linkDescription }}
+          </div>
+        </v-card-subtitle>
+      </v-flex>
+
+    <v-flex v-if="type === 'image'" xs12 sm6 offset-sm3>
       <a :href="message.link">
         <v-img v-if="message.linkCover" :src="message.linkCover"></v-img>
       </a>
-
     </v-flex>
 
-    <v-flex v-if="type === 'youtube'"  xs12 sm6 offset-sm3>
+    <v-flex v-if="type === 'youtube'" xs12 sm6 offset-sm3>
       <you-tube :src="message.link"></you-tube>
     </v-flex>
-
-  </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -37,7 +33,7 @@ import YouTube from 'components/media/YouTube.vue'
 
 export default {
   name: "Media",
-  components: { YouTube },
+  components: {YouTube},
   props: ['message'],
   data() {
     return {

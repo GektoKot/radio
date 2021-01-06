@@ -6,9 +6,10 @@
         Radio message
         v-model="text"
         outlined
+        @keyup.enter="save"
     ></v-text-field>
 <!--    <input type="button" value="Broadcast!" @click="save"/>-->
-    <v-btn color="orange lighten-4" class="mb-5" @click="save" small>
+    <v-btn color="orange lighten-4" class="mb-5" @click="save"  small>
       <v-icon >mdi-antenna</v-icon>Broadcast<v-icon >mdi-antenna</v-icon>
     </v-btn>
   </v-layout>
