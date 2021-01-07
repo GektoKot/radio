@@ -2,11 +2,13 @@ package com.variant.radio.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class Message implements Serializable {
     @JsonView(value = Views.IdTextDate.class)
     private User author;
 
-    @OneToMany(mappedBy = "message", orphanRemoval = true)
+    @OneToMany(mappedBy = "message", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonView(value = Views.IdTextDate.class)
     private List<Comment> comments;
 
@@ -46,4 +48,11 @@ public class Message implements Serializable {
     private String linkDescription;
     @JsonView(Views.IdTextDate.class)
     private String linkCover;
+
+    public void setComments(List<Comment> comments) {
+        this.comments.clear();
+        if (comments != null) {
+            this.comments.addAll(comments);
+        }
+    }
 }

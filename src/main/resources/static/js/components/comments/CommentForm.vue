@@ -1,15 +1,18 @@
 <template>
-  <v-layout row>
+  <v-layout row class="mx-6">
 
       <v-text-field
           label="Add comment"
           Comment
           v-model="text"
-          outlined
           @keyup.enter="save"
       />
-      <v-btn color="orange lighten-4"  @click="save">
-        Comment
+      <v-btn
+          class="ml-2"
+          color="orange lighten-4"
+          fab
+          @click="save">
+        <v-icon>mdi-pencil</v-icon>
       </v-btn>
 
 

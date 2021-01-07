@@ -23,7 +23,7 @@ public class CommentController {
     }
 
     @PostMapping
-    @JsonView(Views.IdTextDate.class)
+    @JsonView(Views.IdTextComment.class)
     public Comment create(@RequestBody Comment comment,
                           @AuthenticationPrincipal User user) {
         return commentService.create(comment, user);

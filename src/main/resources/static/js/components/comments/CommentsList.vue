@@ -1,9 +1,8 @@
 <template>
   <v-list three-line
           color="light-blue lighten-4">
-    <v-list-item-title>Comments:</v-list-item-title>
+<!--    <v-list-item-title>Comments:</v-list-item-title>-->
     <template v-for="(item, index) in comments">
-
       <v-divider
           v-if="index > 0"
           :key="index"

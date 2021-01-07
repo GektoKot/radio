@@ -2,5 +2,5 @@ package com.variant.radio.dto;
 
 
 public enum ObjectType {
-    MESSAGE
+    MESSAGE, COMMENT
 }

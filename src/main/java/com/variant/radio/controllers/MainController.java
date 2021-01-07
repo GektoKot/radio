@@ -45,6 +45,8 @@ public class MainController {
             data.put("profile", user);
             String messages = objectWriter.writeValueAsString(messageRepository.findAll());
             model.addAttribute("messages", messages);
+        } else {
+            model.addAttribute("messages", "[]");
         }
 
         model.addAttribute("frontendData", data);

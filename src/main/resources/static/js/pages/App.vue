@@ -67,7 +67,7 @@
 import {mapState, mapMutations} from 'vuex'
 // import MessagesList from 'components/messages/MessagesList.vue'
 import {addHandler} from 'util/ws'
-import router from "../router/router";
+// import router from 'static/js/router/router.js'
 
 
 export default {
@@ -76,7 +76,10 @@ export default {
    },*/
   computed: mapState(['profile']),
   methods: {
-    ...mapMutations(['deleteMessageMutation', 'updateMessageMutation', 'createMessageMutation']),
+    ...mapMutations(['deleteMessageMutation',
+      'updateMessageMutation',
+      'createMessageMutation',
+      'createCommentMutation']),
     showMessages() {
       this.$router.push('/')
 
@@ -98,6 +101,15 @@ export default {
             break
           case 'DELETE':
             this.deleteMessageMutation(data.body)
+            break
+          default:
+            console.error('EventType is unknown ')
+        }
+      } else if (data.objectType === 'COMMENT') {
+        // const index = this.messages.findIndex(item => item.id === data.body.id)
+        switch (data.eventType) {
+          case 'CREATE':
+            this.createCommentMutation(data.body)
             break
           default:
             console.error('EventType is unknown ')
