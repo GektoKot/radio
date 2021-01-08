@@ -4,7 +4,7 @@
           elevation="15"
           outlined
           shaped>
-      <v-avatar v-if="message.author && message.author.userpic"
+      <!--<v-avatar v-if="message.author && message.author.userpic"
                 class="ml-3"
                 size="48">
         <img
@@ -22,7 +22,8 @@
       </v-avatar>
     <span class="pl-1">
       {{ authorName }}
-    </span>
+    </span>-->
+    <user-link :user="message.author"></user-link>
       <v-card-text>{{ message.text }}</v-card-text>
     <media v-if="message.link" :message="message"></media>
     <v-card-actions>
@@ -51,15 +52,12 @@
 import {mapActions} from 'vuex'
 import Media from 'components/media/Media.vue'
 import CommentsList from 'components/comments/CommentsList.vue'
+import UserLink from 'components/UserLink.vue'
 
 export default {
   props: ['message', 'editMessage'],
-  components: {CommentsList, Media},
-  computed: {
-    authorName() {
-      return this.message.author ? this.message.author.name : "unknown"
-    }
-  },
+  components: {UserLink, CommentsList, Media},
+
   methods: {
     ...mapActions(['deleteMessageAction']),
     edit() {

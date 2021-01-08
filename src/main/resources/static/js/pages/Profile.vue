@@ -1,7 +1,7 @@
 <template>
   <v-card
       class="mx-auto mt-3"
-      color="grey lighten-4"
+      color="blue lighten-5"
       elevation="15"
       max-width="600"
       outlined
@@ -11,9 +11,10 @@
       <v-list-item-content>
         <div class="overline">
           Name: <br/>
-          -{{profile.name}}
+          -{{ profile.name }}
         </div>
-        <div class="overline">
+        <div v-if="isMyProfile"
+            class="overline">
           E-mail: <br/>
           -{{ profile.email }}
         </div>
@@ -25,32 +26,73 @@
           Gender: <br/>
           -{{ profile.gender }}
         </div>
+        <v-list-item>{{ profile.subscriptions && profile.subscriptions.length }} Subscriptions</v-list-item>
+        <v-list-item>{{ profile.subscribers && profile.subscribers.length }} Subscribers</v-list-item>
         <v-list-item-subtitle>
           The last broadcast: <br/>
           {{ profile.lastVisit }}
         </v-list-item-subtitle>
+        <v-btn v-if="!isMyProfile"
+               @click="changeSubscription"
+               rounded>
+          {{ isISubscribed ? "unsubscribe" : "subscribe" }}
+        </v-btn>
+
       </v-list-item-content>
 
-<!--      <v-list-item-avatar-->
-<!--          tile-->
-<!--          size="80"-->
-<!--      >-->
-        <v-avatar
-            size="80"
-            color="teal"
-        >
-          <v-img :src="profile.userpic" alt="User"/>
-        </v-avatar>
-<!--      </v-list-item-avatar>-->
+
+      <v-avatar size="80"
+                color="teal">
+        <v-img :src="profile.userpic" alt="User"/>
+
+      </v-avatar>
+
     </v-list-item>
   </v-card>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import {mapState} from 'vuex'
+import ProfileApi from 'api/profile.js'
+
 export default {
   name: 'profile',
-  computed: mapState(['profile'])
+  // computed: mapState(['profile'])
+  data() {
+    return {
+      profile: {}
+    }
+  },
+  computed: {
+    isMyProfile() {
+      return !this.$route.params.id || this.$route.params.id === this.$store.state.profile.id
+    },
+    isISubscribed() {
+      return this.profile.subscribers && this.profile.subscribers.find(subscription => {
+        return subscription.id === this.$store.state.profile.id
+      })
+    }
+  },
+  watch: {
+    '$route'() {
+      this.updateProfile()
+    }
+  },
+  methods: {
+    async changeSubscription() {
+      const data = await ProfileApi.changeSubscription(this.profile.id)
+      this.profile = await data.json()
+    },
+    async updateProfile() {
+      const id = this.$route.params.id || this.$store.state.profile.id
+      const data = await ProfileApi.get(id)
+      this.profile = await data.json()
+      this.$forceUpdate()
+    }
+  },
+  beforeMount() {
+    this.updateProfile()
+  }
 }
 </script>
 

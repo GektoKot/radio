@@ -18,7 +18,7 @@
                class="mx-1"
                rounded
                small
-               :disabled="$route.path === '/profile'"
+               :disabled="$route.path === '/user'"
                @click="showProfile">
           Newscaster
         </v-btn>
@@ -85,7 +85,7 @@ export default {
 
     },
     showProfile() {
-      this.$router.push('/profile')
+      this.$router.push('/user')
     }
   },
   created() {

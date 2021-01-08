@@ -6,5 +6,5 @@ public final class Views {
     public interface IdText extends Id {}
     public interface IdTextComment extends IdText {}
     public interface IdTextDate extends IdText{}
-
+    public interface IdTextProfile extends IdText {}
 }

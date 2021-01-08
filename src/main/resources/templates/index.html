@@ -6,8 +6,8 @@
     <title>Radio!</title>
 
 <!--&lt;!&ndash;    <link rel="icon" href="http://localhost:8080/favicon.ico" type="image/x-icon">&ndash;&gt;-->
-<!--    <link rel="icon" href="favicon.png" type="image/png">-->
-<!--    <link rel="shortcut icon" href="favicon.png" type="image/png">-->
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
@@ -20,7 +20,10 @@
     <script th:inline="javascript">
         let frontendData = [[${frontendData}]];
         // let messages = [# th:utext="${messages}" /];
+        // let messages = [[${messages}]]
+        // let profile =  [[${profile}]]
         let messages = JSON.parse([[${messages}]]);
+        let profile = JSON.parse([[${profile}]]);
     </script>
 </head>
 <body>
