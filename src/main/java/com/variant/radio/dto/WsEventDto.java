@@ -6,9 +6,9 @@ import com.variant.radio.domain.Views;
 
 import lombok.*;
 
-@JsonView(Views.Id.class)
 @Data
 @AllArgsConstructor
+@JsonView(Views.Id.class)
 public class WsEventDto {
     private ObjectType objectType;
     private EventType eventType;
@@ -45,3 +45,4 @@ public class WsEventDto {
         this.body = body;
     }*/
 }
+

@@ -5,9 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.variant.radio.domain.User;
 import com.variant.radio.domain.Views;
+import com.variant.radio.dto.MessagePageDto;
 import com.variant.radio.repository.MessageRepository;
+import com.variant.radio.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +21,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.variant.radio.controllers.MessageController.MESSAGES_PER_PAGE;
+
 @Controller
 @RequestMapping("/")
 public class MainController {
 
-    private final MessageRepository messageRepository;
+    private final MessageService messageService;
 //переменная окружения
     @Value("${spring.profiles.active}")
     private String profile;
     private final ObjectWriter objectWriter;
 
     @Autowired
-    public MainController(MessageRepository messageRepository,  ObjectMapper objectMapper) {
-        this.messageRepository = messageRepository;
+    public MainController(MessageService messageService,  ObjectMapper objectMapper) {
+        this.messageService = messageService;
 
         this.objectWriter = objectMapper
                 .setConfig(objectMapper.getSerializationConfig())
@@ -43,8 +49,16 @@ public class MainController {
 
         if (user != null) {
             data.put("profile", user);
-            String messages = objectWriter.writeValueAsString(messageRepository.findAll());
+
+            Sort sort = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(0, MESSAGES_PER_PAGE, sort);
+            MessagePageDto messagePageDto = messageService.findAll(pageRequest);
+
+            String messages = objectWriter.writeValueAsString(messagePageDto.getMessages());
+
             model.addAttribute("messages", messages);
+            data.put("currentPage", messagePageDto.getCurrentPage());
+            data.put("totalPages", messagePageDto.getTotalPages());
         } else {
             model.addAttribute("messages", "[]");
         }

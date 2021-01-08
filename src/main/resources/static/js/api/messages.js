@@ -5,5 +5,6 @@ const messages = Vue.resource('/messages{/id}')
 export default {
     create: message => messages.save({}, message),
     update: message => messages.update({id: message.id}, message),
-    delete: id => messages.remove({id})
+    delete: id => messages.remove({id}),
+    page: page => Vue.http.get('/messages', {params: {page}})
 }
