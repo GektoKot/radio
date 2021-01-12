@@ -47,7 +47,7 @@ public class MessageService {
     public MessageService(UserSubscriptionRepository userSubscriptionRepository, MessageRepository messageRepository, WsSender wsSender) {
         this.userSubscriptionRepository = userSubscriptionRepository;
         this.messageRepository = messageRepository;
-        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.IdText.class);
+        this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.IdTextDate.class);
     }
 
 
@@ -100,8 +100,9 @@ public class MessageService {
 
 
     public Message update(Message messageFromDB, Message message, User user) throws IOException {
-        BeanUtils.copyProperties(message, messageFromDB, "id");
-        messageFromDB.setAuthor(user);
+        messageFromDB.setText(message.getText());
+//        BeanUtils.copyProperties(message, messageFromDB, "id");
+//        messageFromDB.setAuthor(user);
         fillMeta(messageFromDB);
         Message updatedMessage = messageRepository.save(messageFromDB);
         wsSender.accept(EventType.UPDATE, updatedMessage);

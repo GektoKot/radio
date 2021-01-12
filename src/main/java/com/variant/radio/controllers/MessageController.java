@@ -41,6 +41,7 @@ public class MessageController {
     }
 
     @PostMapping
+    @JsonView(Views.IdTextDate.class)
     public Message createNewMessage(@RequestBody Message message,
                                     @AuthenticationPrincipal User user) throws IOException {
         return messageService.create(message, user);
