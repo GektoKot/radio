@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import YouTube from 'components/media/YouTube.vue'
+import YouTube from 'js/components/media/YouTube.vue'
 
 export default {
   name: "Media",

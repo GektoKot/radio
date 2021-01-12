@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import ProfileApi from 'api/profile.js'
+import ProfileApi from 'js/api/profile.js'
 
 export default {
   name: 'profile',

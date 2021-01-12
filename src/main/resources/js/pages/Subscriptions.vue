@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import ProfileApi from 'api/profile.js'
-import UserLink from 'components/UserLink.vue'
+import ProfileApi from 'js/api/profile.js'
+import UserLink from 'js/components/UserLink.vue'
 export default {
   name: 'Subscriptions',
   components: {UserLink},

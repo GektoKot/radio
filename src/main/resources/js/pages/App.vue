@@ -66,7 +66,7 @@
 <script>
 import {mapState, mapMutations} from 'vuex'
 // import MessagesList from 'components/messages/MessagesList.vue'
-import {addHandler} from 'util/ws'
+import {addHandler} from 'js/util/ws'
 // import router from 'static/js/router/router.js'
 
 

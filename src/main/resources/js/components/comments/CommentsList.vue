@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import CommentItem from 'components/comments/CommentItem.vue'
-import CommentForm from 'components/comments/CommentForm.vue'
+import CommentItem from 'js/components/comments/CommentItem.vue'
+import CommentForm from 'js/components/comments/CommentForm.vue'
 export default {
   name: "CommentsList",
   components: {CommentForm, CommentItem},
