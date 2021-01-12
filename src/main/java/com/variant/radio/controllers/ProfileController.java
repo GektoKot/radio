@@ -2,11 +2,14 @@ package com.variant.radio.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.variant.radio.domain.User;
+import com.variant.radio.domain.UserSubscription;
 import com.variant.radio.domain.Views;
 import com.variant.radio.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("profile")
@@ -33,7 +36,17 @@ public class ProfileController {
         } else {
             return profileService.changeSubscription(subscriber, channel);
         }
-
+    }
+    @GetMapping("get-subscribers/{channelId}")
+    @JsonView(Views.IdText.class)
+    public List<UserSubscription> subscribers(@PathVariable("channelId") User channel) {
+        return profileService.getSubscribers(channel);
+    }
+    @PostMapping("change-status/{subscriberId}")
+    @JsonView(Views.IdText.class)
+    public UserSubscription changeSubscriptionStatus(@AuthenticationPrincipal User channel,
+                                                     @PathVariable("subscriberId") User subscriber) {
+        return profileService.changeSubscriptionStatus(channel, subscriber);
     }
 
 }

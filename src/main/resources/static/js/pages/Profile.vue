@@ -14,7 +14,7 @@
           -{{ profile.name }}
         </div>
         <div v-if="isMyProfile"
-            class="overline">
+             class="overline">
           E-mail: <br/>
           -{{ profile.email }}
         </div>
@@ -26,12 +26,22 @@
           Gender: <br/>
           -{{ profile.gender }}
         </div>
+
         <div class="overline">
           Subscriptions: {{ profile.subscriptions && profile.subscriptions.length }}
         </div>
-        <div class="overline">
+
+        <router-link v-if="isMyProfile"
+                     :to="`/subscriptions/${profile.id}`">
+          <div class="overline">
+            Subscribers: {{ profile.subscribers && profile.subscribers.length }}
+          </div>
+        </router-link>
+        <div v-else
+             class="overline">
           Subscribers: {{ profile.subscribers && profile.subscribers.length }}
         </div>
+
         <v-list-item-subtitle>
           The last broadcast: <br/>
           {{ profile.lastVisit }}
@@ -56,12 +66,10 @@
 </template>
 
 <script>
-// import {mapState} from 'vuex'
 import ProfileApi from 'api/profile.js'
 
 export default {
   name: 'profile',
-  // computed: mapState(['profile'])
   data() {
     return {
       profile: {}
