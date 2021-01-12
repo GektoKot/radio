@@ -3,10 +3,10 @@
         <!--<v-list-item-avatar size="32">
           <img :src="comment.author.userpic" />
         </v-list-item-avatar>-->
-        <user-link :user="comment.author"></user-link>
         <v-list-item-content>
+        <user-link :user="comment.author"></user-link>
 <!--          <v-list-item-subtitle>{{comment.author.name}}</v-list-item-subtitle>-->
-          <v-list-item-title>{{comment.text}}</v-list-item-title>
+          <div>{{comment.text}}</div>
         </v-list-item-content>
       </v-list-item>
 </template>

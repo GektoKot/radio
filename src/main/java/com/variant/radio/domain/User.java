@@ -11,10 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table
-//@Data
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(of = {"id"})
+@ToString(of = {"id", "name"})
 public class User implements Serializable {
     @Id
     @JsonView(value = Views.IdText.class)
@@ -23,6 +22,7 @@ public class User implements Serializable {
     private String name;
     @JsonView(value = Views.IdText.class)
     private String userpic;
+    @JsonView(value = Views.IdTextProfile.class)
     private String email;
     @JsonView(value = Views.IdTextProfile.class)
     private String gender;
@@ -32,33 +32,22 @@ public class User implements Serializable {
     @JsonView(value = Views.IdTextProfile.class)
     private LocalDateTime lastVisit;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_subscriptions",
-            joinColumns = @JoinColumn(name = "subscriber_id"),
-            inverseJoinColumns = @JoinColumn(name = "channel_id")
-    )
     @JsonView(value = Views.IdTextProfile.class)
-    @JsonIdentityReference
-    @JsonIdentityInfo(
-            property = "id",
-            generator = ObjectIdGenerators.PropertyGenerator.class
+    @OneToMany(
+            mappedBy = "subscriber",
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
     )
-    private Set<User> subscriptions = new HashSet<>();
+    private Set<UserSubscription> subscriptions = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_subscriptions",
-            joinColumns = @JoinColumn(name = "channel_id"),
-            inverseJoinColumns = @JoinColumn(name = "subscriber_id")
-    )
     @JsonView(value = Views.IdTextProfile.class)
-    @JsonIdentityReference
-    @JsonIdentityInfo(
-            property = "id",
-            generator = ObjectIdGenerators.PropertyGenerator.class
+    @OneToMany(
+            mappedBy = "channel",
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            cascade = CascadeType.ALL
     )
-    private Set<User> subscribers = new HashSet<>();
+    private Set<UserSubscription> subscribers = new HashSet<>();
 
 
 }

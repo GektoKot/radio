@@ -1,11 +1,14 @@
 package com.variant.radio.service;
 
 import com.variant.radio.domain.User;
+import com.variant.radio.domain.UserSubscription;
 import com.variant.radio.repository.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
@@ -17,12 +20,16 @@ public class ProfileService {
     }
 
     public User changeSubscription(User subscriber, User channel) {
-        Set<User> subscribers = channel.getSubscribers();
+        List<UserSubscription> subscriptions = channel.getSubscribers()
+                .stream()
+                .filter(subscription -> subscription.getSubscriber().equals(subscriber))
+                .collect(Collectors.toList());
 
-        if (subscribers.contains(subscriber)) {
-            subscribers.remove(subscriber);
+        if (subscriptions.isEmpty()) {
+            UserSubscription userSubscription = new UserSubscription(channel, subscriber);
+            channel.getSubscribers().add(userSubscription);
         } else {
-            subscribers.add(subscriber);
+            channel.getSubscribers().removeAll(subscriptions);
         }
         return userDetailsRepository.save(channel);
     }

@@ -2,12 +2,14 @@ package com.variant.radio.service;
 
 import com.variant.radio.domain.Message;
 import com.variant.radio.domain.User;
+import com.variant.radio.domain.UserSubscription;
 import com.variant.radio.domain.Views;
 import com.variant.radio.dto.EventType;
 import com.variant.radio.dto.MessagePageDto;
 import com.variant.radio.dto.MetaDto;
 import com.variant.radio.dto.ObjectType;
 import com.variant.radio.repository.MessageRepository;
+import com.variant.radio.repository.UserSubscriptionRepository;
 import com.variant.radio.util.WsSender;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,6 +27,8 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class MessageService {
@@ -34,12 +38,14 @@ public class MessageService {
     private static  Pattern URL_REGEX = Pattern.compile(URL_PATTERN, Pattern.CASE_INSENSITIVE);
     private static  Pattern IMG_REGEX = Pattern.compile(IMAGE_PATTERN, Pattern.CASE_INSENSITIVE);
 
+    private final UserSubscriptionRepository userSubscriptionRepository;
     private final MessageRepository messageRepository;
     private final BiConsumer<EventType, Message> wsSender;
 
 
     @Autowired
-    public MessageService(MessageRepository messageRepository, WsSender wsSender) {
+    public MessageService(UserSubscriptionRepository userSubscriptionRepository, MessageRepository messageRepository, WsSender wsSender) {
+        this.userSubscriptionRepository = userSubscriptionRepository;
         this.messageRepository = messageRepository;
         this.wsSender = wsSender.getSender(ObjectType.MESSAGE, Views.IdText.class);
     }
@@ -111,8 +117,16 @@ public class MessageService {
         return savedMessage;
     }
 
-    public MessagePageDto findAll(Pageable pageable) {
-        Page<Message> page = messageRepository.findAll(pageable);
+    public MessagePageDto findForUser(Pageable pageable, User user) {
+        List<User> channels = userSubscriptionRepository.findBySubscriber(user)
+                .stream()
+                .map(UserSubscription::getChannel)
+                .collect(Collectors.toList());
+
+        channels.add(user);
+
+        Page<Message> page = messageRepository.findByAuthorIn(channels, pageable);
+
         return new MessagePageDto(
                 page.getContent(),
                 pageable.getPageNumber(),

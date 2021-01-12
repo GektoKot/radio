@@ -26,8 +26,12 @@
           Gender: <br/>
           -{{ profile.gender }}
         </div>
-        <v-list-item>{{ profile.subscriptions && profile.subscriptions.length }} Subscriptions</v-list-item>
-        <v-list-item>{{ profile.subscribers && profile.subscribers.length }} Subscribers</v-list-item>
+        <div class="overline">
+          Subscriptions: {{ profile.subscriptions && profile.subscriptions.length }}
+        </div>
+        <div class="overline">
+          Subscribers: {{ profile.subscribers && profile.subscribers.length }}
+        </div>
         <v-list-item-subtitle>
           The last broadcast: <br/>
           {{ profile.lastVisit }}
@@ -69,7 +73,7 @@ export default {
     },
     isISubscribed() {
       return this.profile.subscribers && this.profile.subscribers.find(subscription => {
-        return subscription.id === this.$store.state.profile.id
+        return subscription.subscriber === this.$store.state.profile.id
       })
     }
   },
