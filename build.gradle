@@ -23,7 +23,7 @@ repositories {
 }
 
 node {
-	download = true
+	download: true
 }
 
 dependencies {
