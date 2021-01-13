@@ -22,6 +22,10 @@ repositories {
 	mavenCentral()
 }
 
+node {
+	download = true
+}
+
 dependencies {
 	implementation('org.projectlombok:lombok:1.18.16')
 	compileOnly 'org.projectlombok:lombok:1.18.16'
